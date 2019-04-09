@@ -1,4 +1,13 @@
 from parser.parser import pyparsing_parse
+import json
+
+rawFrameHandler = open("frame.json", "r")
+rawFrame = rawFrameHandler.read()
+rawFrameHandler.close()
+
+frame = json.loads(rawFrame)
+
+print(frame)
 
 op = ['~', '&', '|', '->']
 v = dict([])
