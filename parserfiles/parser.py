@@ -135,6 +135,8 @@ def pyparsing_parse(text):
     try:
         result = formula.parseString(text, parseAll=True)
         assert len(result) == 1
+        if(type(result[0]) is str):
+            return result[0]
         return result[0].asList()
     except (ParseException, ParseSyntaxException) as err:
         print("Syntax error:\n{0.line}\n{1}^".format(err,

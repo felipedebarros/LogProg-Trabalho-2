@@ -41,4 +41,3 @@ def evaluate(formula, state = frame["initialstate"]):
 
 formula = pyparsing_parse(input("Formula: "))
 print(evaluate(formula))
-print(formula)
