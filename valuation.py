@@ -35,4 +35,5 @@ def evaluate(formula):
             return ( (not evaluate(formula[0])) or evaluate(formula[2]))
 
 formula = pyparsing_parse(input("Formula: "))
-print(evaluate(formula))
+# print(evaluate(formula))
+print(formula)

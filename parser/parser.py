@@ -15,7 +15,7 @@ BNF
                  |  FORMULA '->' FORMULA      # right associative
                  |  FORMULA '|' FORMULA       # left associative
                  |  FORMULA '&' FORMULA       # left associative
-                 |  '~' FORMULA
+                 |  ('~' | '[]' | '<>') FORMULA
                  |  '(' FORMULA ')'
                  |  TERM '=' TERM
                  |  'true'
@@ -111,6 +111,8 @@ def pyparsing_parse(text):
     implies = Literal("->")
     or_ = Literal("|")
     and_ = Literal("&")
+    necessary_ = Literal("[]")
+    possible_ = Literal("<>")
     not_ = Literal("~")
     equals = Literal("=")
     boolean = Keyword("false") | Keyword("true")
@@ -124,6 +126,8 @@ def pyparsing_parse(text):
     operand = forall_expression | exists_expression | boolean | term
     formula << operatorPrecedence(operand, [
                                   (equals, 2, opAssoc.LEFT),
+                                  (necessary_, 1, opAssoc.RIGHT),
+                                  (possible_, 1, opAssoc.RIGHT),
                                   (not_, 1, opAssoc.RIGHT),
                                   (and_, 2, opAssoc.LEFT),
                                   (or_, 2, opAssoc.LEFT),
@@ -204,7 +208,7 @@ def ply_parse(text):
     keywords = {"exists": "EXISTS", "forall": "FORALL",
                 "true": "TRUE", "false": "FALSE"}
     tokens = (["SYMBOL", "COLON", "COMMA", "LPAREN", "RPAREN",
-               "EQUALS", "NOT", "AND", "OR", "IMPLIES"] +
+               "EQUALS", "NECESSARY", "POSSIBLE", "NOT", "AND", "OR", "IMPLIES"] +
               list(keywords.values()))
 
     def t_SYMBOL(t):
@@ -214,6 +218,8 @@ def ply_parse(text):
 
 
     t_EQUALS = r"="
+    t_NECESSARY = r"[]"
+    t_POSSIBLE = r"<>"
     t_NOT = r"~"
     t_AND = r"&"
     t_OR = r"\|"
@@ -246,6 +252,14 @@ def ply_parse(text):
                    | FORMULA OR FORMULA
                    | FORMULA AND FORMULA"""
         p[0] = [p[1], p[2], p[3]]
+
+    def p_formula_necessary(p):
+        "FORMULA : NECESSARY FORMULA"
+        p[0] = [p[1], p[2]]
+
+    def p_formula_possible(p):
+        "FORMULA : POSSIBLE FORMULA"
+        p[0] = [p[1], p[2]]
 
     def p_formula_not(p):
         "FORMULA : NOT FORMULA"
@@ -290,6 +304,8 @@ def ply_parse(text):
                   ("left", "OR"),
                   ("left", "AND"),
                   ("right", "NOT"),
+                  ("right", "POSSIBLE"),
+                  ("right", "NECESSARY"),
                   ("nonassoc", "EQUALS"))
 
     lexer = ply.lex.lex()
