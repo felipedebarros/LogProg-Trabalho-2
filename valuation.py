@@ -1,4 +1,4 @@
-from parser.parser import pyparsing_parse
+from parserfiles.parser import pyparsing_parse
 import json
 
 rawFrameHandler = open("frame.json", "r")
@@ -7,33 +7,38 @@ rawFrameHandler.close()
 
 frame = json.loads(rawFrame)
 
-print(frame)
 
-op = ['~', '&', '|', '->']
-v = dict([])
-
-def evaluate(formula):
+def evaluate(formula, state = frame["initialstate"]):
     if(len(formula) == 1):
-        if(formula not in v):
-            ev = input('Enter a value for "' + formula + '" (t/f): ')
-            if(ev == 't' or ev == 'T'):
-                ev = True
-            elif (ev == 'f' or ev == 'F'):
-                ev = False
+        if(formula in frame["symbols"]):
+            if(state in frame["valuation"][formula]):
+                return True
             else:
-                print('Not a valid value for "' + formula + '".')
-            v[formula] = ev
-        return v[formula]
-    elif(len(formula) == 2 and formula[0] is '~'):
-        return (not evaluate(formula[1]))
+                return False
+        else:
+            return False
+    elif(len(formula) == 2):
+        if(formula[0] == "~"):
+            return (not evaluate(formula[1], state))
+        elif(formula[0] == "[]"):
+            for neighboor in frame["relationships"][state]:
+                if(evaluate(formula[1], neighboor) == False):
+                    return False
+            return True 
+        elif(formula[0] == "<>"):
+            for neighboor in frame["relationships"][state]:
+                if(evaluate(formula[1], neighboor) == True):
+                    return True
+            return False 
+        
     elif(len(formula) == 3):
         if(formula[1] == '&'):
-            return (evaluate(formula[0]) and evaluate(formula[2]))
+            return (evaluate(formula[0], state) and evaluate(formula[2], state))
         if(formula[1] == '|'):
-            return (evaluate(formula[0]) or evaluate(formula[2]))
+            return (evaluate(formula[0], state) or evaluate(formula[2], state))
         if(formula[1] == '->'):
-            return ( (not evaluate(formula[0])) or evaluate(formula[2]))
+            return ( (not evaluate(formula[0], state)) or evaluate(formula[2], state))
 
 formula = pyparsing_parse(input("Formula: "))
-# print(evaluate(formula))
+print(evaluate(formula))
 print(formula)
