@@ -8,7 +8,7 @@ rawFrameHandler.close()
 frame = json.loads(rawFrame)
 
 
-def evaluate(formula, state = frame["initialstate"]):
+def evaluate(formula, state = frame["initialstate"], mode = "default"):
     if(len(formula) == 1):
         if(formula in frame["symbols"]):
             if(state in frame["valuation"][formula]):
@@ -32,6 +32,7 @@ def evaluate(formula, state = frame["initialstate"]):
             return False 
         
     elif(len(formula) == 3):
+
         if(formula[1] == '&'):
             return (evaluate(formula[0], state) and evaluate(formula[2], state))
         if(formula[1] == '|'):
