@@ -23,7 +23,7 @@ tokens = (
     'LNECESSARY', 'RNECESSARY',
     'LPOSSIBLE', 'RPOSSIBLE',
     'LBROADCAST', 'RBROADCAST'
-    )
+    ) 
 
 t_SYMBOL = r'[a-zA-Z_]*\w'
 t_IMPLIES = r'->'
