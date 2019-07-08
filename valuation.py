@@ -7,8 +7,29 @@ rawFrameHandler.close()
 
 frame = json.loads(rawFrame)
 
+def updateFrame(formula):
+    for state in frame["states"]:
+        if (evaluate(formula, state) == False):
+            removeState(state)
+    print ("Frame depois: ", frame)
+    
 
-def evaluate(formula, state = frame["initialstate"], mode = "default"):
+
+
+def removeState(state):
+    frame["states"].remove(state)
+    for modeRelationships in frame["relationships"]:
+        if(state in frame["relationships"][modeRelationships]):
+            del frame["relationships"][modeRelationships][state]
+        for originStateRelationships in frame["relationships"][modeRelationships]:
+            if(state in frame["relationships"][modeRelationships][originStateRelationships]):
+                frame["relationships"][modeRelationships][originStateRelationships].remove(state)
+    for symbol in frame["valuation"]:
+        if(state in frame["valuation"][symbol]):
+            frame["valuation"][symbol].remove(state)
+
+
+def evaluate(formula, state = frame["initialstate"]):
     if(len(formula) == 1):
         if(formula in frame["symbols"]):
             if(state in frame["valuation"][formula]):
@@ -53,5 +74,12 @@ def evaluate(formula, state = frame["initialstate"], mode = "default"):
             return ( (not evaluate(formula[0], state)) or evaluate(formula[2], state))
 
 formula = parse(input("Formula: "))
+if(formula[1] == "{}"):
+    print ("Frame atual: ", frame)
+    updateFrame(formula[0])
+#    evaluate(formula[2])
+#else:
+#    evaluate(formula)
+
 # print(evaluate(formula))
-print(formula)
+#print(formula)
