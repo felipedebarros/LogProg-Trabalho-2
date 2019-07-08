@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'nonassocFORALLEXISTSrightIMPLIESleftORleftANDrightNOTnonassocEQUALSAND COLON COMMA EQUALS EXISTS FALSE FORALL IMPLIES LPAREN NOT OR RPAREN SYMBOL TRUEFORMULA : FORALL SYMBOL COLON FORMULA\n                   | EXISTS SYMBOL COLON FORMULAFORMULA : FORMULA IMPLIES FORMULA\n                   | FORMULA OR FORMULA\n                   | FORMULA AND FORMULAFORMULA : NOT FORMULAFORMULA : FALSE\n                   | TRUEFORMULA : LPAREN FORMULA RPARENFORMULA : SYMBOLFORMULA : TERM EQUALS TERMTERM : SYMBOL LPAREN TERMLIST RPAREN\n                | SYMBOLTERMLIST : TERM COMMA TERMLIST\n                    | TERM'
+_lr_signature = 'rightIMPLIESleftORleftANDrightNOTrightPOSSIBLErightNECESSARYleftLPOSSIBLErightRPOSSIBLEleftLNECESSARYrightRNECESSARYAND IMPLIES LBROADCAST LNECESSARY LPARENTESIS LPOSSIBLE NECESSARY NOT OR POSSIBLE RBROADCAST RNECESSARY RPARENTESIS RPOSSIBLE SYMBOLBROADCAST : FORMULA\n                  | LBROADCAST FORMULA RBROADCAST FORMULAFORMULA : SYMBOLFORMULA : FORMULA IMPLIES FORMULA\n                | FORMULA OR FORMULA\n                | FORMULA AND FORMULAFORMULA : NOT FORMULA\n                | NECESSARY FORMULA\n                | POSSIBLE FORMULA\n                | MODAL FORMULAFORMULA : LPARENTESIS FORMULA RPARENTESISMODAL : LNECESSARY SYMBOL RNECESSARYMODAL : LPOSSIBLE SYMBOL RPOSSIBLE'
     
-_lr_action_items = {'FORALL':([0,5,8,10,11,12,22,26,],[2,2,2,2,2,2,2,2,]),'EXISTS':([0,5,8,10,11,12,22,26,],[4,4,4,4,4,4,4,4,]),'NOT':([0,5,8,10,11,12,22,26,],[5,5,5,5,5,5,5,5,]),'FALSE':([0,5,8,10,11,12,22,26,],[6,6,6,6,6,6,6,6,]),'TRUE':([0,5,8,10,11,12,22,26,],[7,7,7,7,7,7,7,7,]),'LPAREN':([0,3,5,8,10,11,12,22,23,26,],[8,14,8,8,8,8,8,8,14,8,]),'SYMBOL':([0,2,4,5,8,10,11,12,14,18,22,26,31,],[3,13,15,3,3,3,3,3,23,23,3,3,23,]),'$end':([1,3,6,7,16,19,20,21,23,27,28,29,30,32,],[0,-10,-7,-8,-6,-3,-4,-5,-13,-9,-11,-1,-12,-2,]),'IMPLIES':([1,3,6,7,16,17,19,20,21,23,27,28,29,30,32,],[10,-10,-7,-8,-6,10,10,-4,-5,-13,-9,-11,10,-12,10,]),'OR':([1,3,6,7,16,17,19,20,21,23,27,28,29,30,32,],[11,-10,-7,-8,-6,11,11,-4,-5,-13,-9,-11,11,-12,11,]),'AND':([1,3,6,7,16,17,19,20,21,23,27,28,29,30,32,],[12,-10,-7,-8,-6,12,12,12,-5,-13,-9,-11,12,-12,12,]),'RPAREN':([3,6,7,16,17,19,20,21,23,24,25,27,28,29,30,32,33,],[-10,-7,-8,-6,27,-3,-4,-5,-13,30,-15,-9,-11,-1,-12,-2,-14,]),'EQUALS':([3,9,30,],[-13,18,-12,]),'COLON':([13,15,],[22,26,]),'COMMA':([23,25,30,],[-13,31,-12,]),}
+_lr_action_items = {'LBROADCAST':([0,],[3,]),'SYMBOL':([0,3,5,6,7,8,9,10,11,12,13,14,26,28,29,],[4,4,4,4,4,4,4,21,22,4,4,4,4,-12,-13,]),'NOT':([0,3,5,6,7,8,9,12,13,14,26,28,29,],[5,5,5,5,5,5,5,5,5,5,5,-12,-13,]),'NECESSARY':([0,3,5,6,7,8,9,12,13,14,26,28,29,],[6,6,6,6,6,6,6,6,6,6,6,-12,-13,]),'POSSIBLE':([0,3,5,6,7,8,9,12,13,14,26,28,29,],[7,7,7,7,7,7,7,7,7,7,7,-12,-13,]),'LPARENTESIS':([0,3,5,6,7,8,9,12,13,14,26,28,29,],[9,9,9,9,9,9,9,9,9,9,9,-12,-13,]),'LNECESSARY':([0,3,5,6,7,8,9,12,13,14,26,28,29,],[10,10,10,10,10,10,10,10,10,10,10,-12,-13,]),'LPOSSIBLE':([0,3,5,6,7,8,9,12,13,14,26,28,29,],[11,11,11,11,11,11,11,11,11,11,11,-12,-13,]),'$end':([1,2,4,16,17,18,19,23,24,25,27,30,],[0,-1,-3,-7,-8,-9,-10,-4,-5,-6,-11,-2,]),'IMPLIES':([2,4,15,16,17,18,19,20,23,24,25,27,30,],[12,-3,12,-7,-8,-9,12,12,12,-5,-6,-11,12,]),'OR':([2,4,15,16,17,18,19,20,23,24,25,27,30,],[13,-3,13,-7,-8,-9,13,13,13,-5,-6,-11,13,]),'AND':([2,4,15,16,17,18,19,20,23,24,25,27,30,],[14,-3,14,-7,-8,-9,14,14,14,14,-6,-11,14,]),'RBROADCAST':([4,15,16,17,18,19,23,24,25,27,],[-3,26,-7,-8,-9,-10,-4,-5,-6,-11,]),'RPARENTESIS':([4,16,17,18,19,20,23,24,25,27,],[-3,-7,-8,-9,-10,27,-4,-5,-6,-11,]),'RNECESSARY':([21,],[28,]),'RPOSSIBLE':([22,],[29,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'FORMULA':([0,5,8,10,11,12,22,26,],[1,16,17,19,20,21,29,32,]),'TERM':([0,5,8,10,11,12,14,18,22,26,31,],[9,9,9,9,9,9,25,28,9,9,25,]),'TERMLIST':([14,31,],[24,33,]),}
+_lr_goto_items = {'BROADCAST':([0,],[1,]),'FORMULA':([0,3,5,6,7,8,9,12,13,14,26,],[2,15,16,17,18,19,20,23,24,25,30,]),'MODAL':([0,3,5,6,7,8,9,12,13,14,26,],[8,8,8,8,8,8,8,8,8,8,8,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,20 +26,18 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> FORMULA","S'",1,None,None,None),
-  ('FORMULA -> FORALL SYMBOL COLON FORMULA','FORMULA',4,'p_formula_quantifier','parser.py',240),
-  ('FORMULA -> EXISTS SYMBOL COLON FORMULA','FORMULA',4,'p_formula_quantifier','parser.py',241),
-  ('FORMULA -> FORMULA IMPLIES FORMULA','FORMULA',3,'p_formula_binary','parser.py',245),
-  ('FORMULA -> FORMULA OR FORMULA','FORMULA',3,'p_formula_binary','parser.py',246),
-  ('FORMULA -> FORMULA AND FORMULA','FORMULA',3,'p_formula_binary','parser.py',247),
-  ('FORMULA -> NOT FORMULA','FORMULA',2,'p_formula_not','parser.py',251),
-  ('FORMULA -> FALSE','FORMULA',1,'p_formula_boolean','parser.py',255),
-  ('FORMULA -> TRUE','FORMULA',1,'p_formula_boolean','parser.py',256),
-  ('FORMULA -> LPAREN FORMULA RPAREN','FORMULA',3,'p_formula_group','parser.py',260),
-  ('FORMULA -> SYMBOL','FORMULA',1,'p_formula_symbol','parser.py',264),
-  ('FORMULA -> TERM EQUALS TERM','FORMULA',3,'p_formula_equals','parser.py',268),
-  ('TERM -> SYMBOL LPAREN TERMLIST RPAREN','TERM',4,'p_term','parser.py',272),
-  ('TERM -> SYMBOL','TERM',1,'p_term','parser.py',273),
-  ('TERMLIST -> TERM COMMA TERMLIST','TERMLIST',3,'p_termlist','parser.py',277),
-  ('TERMLIST -> TERM','TERMLIST',1,'p_termlist','parser.py',278),
+  ("S' -> BROADCAST","S'",1,None,None,None),
+  ('BROADCAST -> FORMULA','BROADCAST',1,'p_broadcast','parser.py',73),
+  ('BROADCAST -> LBROADCAST FORMULA RBROADCAST FORMULA','BROADCAST',4,'p_broadcast','parser.py',74),
+  ('FORMULA -> SYMBOL','FORMULA',1,'p_formula_proposition','parser.py',78),
+  ('FORMULA -> FORMULA IMPLIES FORMULA','FORMULA',3,'p_formula_binary','parser.py',82),
+  ('FORMULA -> FORMULA OR FORMULA','FORMULA',3,'p_formula_binary','parser.py',83),
+  ('FORMULA -> FORMULA AND FORMULA','FORMULA',3,'p_formula_binary','parser.py',84),
+  ('FORMULA -> NOT FORMULA','FORMULA',2,'p_formula_unary','parser.py',88),
+  ('FORMULA -> NECESSARY FORMULA','FORMULA',2,'p_formula_unary','parser.py',89),
+  ('FORMULA -> POSSIBLE FORMULA','FORMULA',2,'p_formula_unary','parser.py',90),
+  ('FORMULA -> MODAL FORMULA','FORMULA',2,'p_formula_unary','parser.py',91),
+  ('FORMULA -> LPARENTESIS FORMULA RPARENTESIS','FORMULA',3,'p_formula_group','parser.py',95),
+  ('MODAL -> LNECESSARY SYMBOL RNECESSARY','MODAL',3,'p_modal_necessity','parser.py',99),
+  ('MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE','MODAL',3,'p_modal_possible','parser.py',103),
 ]

@@ -2,597 +2,612 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> FORMULA
-Rule 1     FORMULA -> FORALL SYMBOL COLON FORMULA
-Rule 2     FORMULA -> EXISTS SYMBOL COLON FORMULA
-Rule 3     FORMULA -> FORMULA IMPLIES FORMULA
-Rule 4     FORMULA -> FORMULA OR FORMULA
-Rule 5     FORMULA -> FORMULA AND FORMULA
-Rule 6     FORMULA -> NOT FORMULA
-Rule 7     FORMULA -> FALSE
-Rule 8     FORMULA -> TRUE
-Rule 9     FORMULA -> LPAREN FORMULA RPAREN
-Rule 10    FORMULA -> SYMBOL
-Rule 11    FORMULA -> TERM EQUALS TERM
-Rule 12    TERM -> SYMBOL LPAREN TERMLIST RPAREN
-Rule 13    TERM -> SYMBOL
-Rule 14    TERMLIST -> TERM COMMA TERMLIST
-Rule 15    TERMLIST -> TERM
+Rule 0     S' -> BROADCAST
+Rule 1     BROADCAST -> FORMULA
+Rule 2     BROADCAST -> LBROADCAST FORMULA RBROADCAST FORMULA
+Rule 3     FORMULA -> SYMBOL
+Rule 4     FORMULA -> FORMULA IMPLIES FORMULA
+Rule 5     FORMULA -> FORMULA OR FORMULA
+Rule 6     FORMULA -> FORMULA AND FORMULA
+Rule 7     FORMULA -> NOT FORMULA
+Rule 8     FORMULA -> NECESSARY FORMULA
+Rule 9     FORMULA -> POSSIBLE FORMULA
+Rule 10    FORMULA -> MODAL FORMULA
+Rule 11    FORMULA -> LPARENTESIS FORMULA RPARENTESIS
+Rule 12    MODAL -> LNECESSARY SYMBOL RNECESSARY
+Rule 13    MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE
 
 Terminals, with rules where they appear
 
-AND                  : 5
-COLON                : 1 2
-COMMA                : 14
-EQUALS               : 11
-EXISTS               : 2
-FALSE                : 7
-FORALL               : 1
-IMPLIES              : 3
-LPAREN               : 9 12
-NOT                  : 6
-OR                   : 4
-RPAREN               : 9 12
-SYMBOL               : 1 2 10 12 13
-TRUE                 : 8
+AND                  : 6
+IMPLIES              : 4
+LBROADCAST           : 2
+LNECESSARY           : 12
+LPARENTESIS          : 11
+LPOSSIBLE            : 13
+NECESSARY            : 8
+NOT                  : 7
+OR                   : 5
+POSSIBLE             : 9
+RBROADCAST           : 2
+RNECESSARY           : 12
+RPARENTESIS          : 11
+RPOSSIBLE            : 13
+SYMBOL               : 3 12 13
 error                : 
 
 Nonterminals, with rules where they appear
 
-FORMULA              : 1 2 3 3 4 4 5 5 6 9 0
-TERM                 : 11 11 14 15
-TERMLIST             : 12 14
+BROADCAST            : 0
+FORMULA              : 1 2 2 4 4 5 5 6 6 7 8 9 10 11
+MODAL                : 10
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . FORMULA
-    (1) FORMULA -> . FORALL SYMBOL COLON FORMULA
-    (2) FORMULA -> . EXISTS SYMBOL COLON FORMULA
-    (3) FORMULA -> . FORMULA IMPLIES FORMULA
-    (4) FORMULA -> . FORMULA OR FORMULA
-    (5) FORMULA -> . FORMULA AND FORMULA
-    (6) FORMULA -> . NOT FORMULA
-    (7) FORMULA -> . FALSE
-    (8) FORMULA -> . TRUE
-    (9) FORMULA -> . LPAREN FORMULA RPAREN
-    (10) FORMULA -> . SYMBOL
-    (11) FORMULA -> . TERM EQUALS TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (0) S' -> . BROADCAST
+    (1) BROADCAST -> . FORMULA
+    (2) BROADCAST -> . LBROADCAST FORMULA RBROADCAST FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    FORALL          shift and go to state 2
-    EXISTS          shift and go to state 4
+    LBROADCAST      shift and go to state 3
+    SYMBOL          shift and go to state 4
     NOT             shift and go to state 5
-    FALSE           shift and go to state 6
-    TRUE            shift and go to state 7
-    LPAREN          shift and go to state 8
-    SYMBOL          shift and go to state 3
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
-    FORMULA                        shift and go to state 1
-    TERM                           shift and go to state 9
+    BROADCAST                      shift and go to state 1
+    FORMULA                        shift and go to state 2
+    MODAL                          shift and go to state 8
 
 state 1
 
-    (0) S' -> FORMULA .
-    (3) FORMULA -> FORMULA . IMPLIES FORMULA
-    (4) FORMULA -> FORMULA . OR FORMULA
-    (5) FORMULA -> FORMULA . AND FORMULA
+    (0) S' -> BROADCAST .
 
-    IMPLIES         shift and go to state 10
-    OR              shift and go to state 11
-    AND             shift and go to state 12
 
 
 state 2
 
-    (1) FORMULA -> FORALL . SYMBOL COLON FORMULA
+    (1) BROADCAST -> FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    SYMBOL          shift and go to state 13
+    $end            reduce using rule 1 (BROADCAST -> FORMULA .)
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
 
 
 state 3
 
-    (10) FORMULA -> SYMBOL .
-    (12) TERM -> SYMBOL . LPAREN TERMLIST RPAREN
-    (13) TERM -> SYMBOL .
+    (2) BROADCAST -> LBROADCAST . FORMULA RBROADCAST FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    IMPLIES         reduce using rule 10 (FORMULA -> SYMBOL .)
-    OR              reduce using rule 10 (FORMULA -> SYMBOL .)
-    AND             reduce using rule 10 (FORMULA -> SYMBOL .)
-    $end            reduce using rule 10 (FORMULA -> SYMBOL .)
-    RPAREN          reduce using rule 10 (FORMULA -> SYMBOL .)
-    LPAREN          shift and go to state 14
-    EQUALS          reduce using rule 13 (TERM -> SYMBOL .)
+    SYMBOL          shift and go to state 4
+    NOT             shift and go to state 5
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
+    FORMULA                        shift and go to state 15
+    MODAL                          shift and go to state 8
 
 state 4
 
-    (2) FORMULA -> EXISTS . SYMBOL COLON FORMULA
+    (3) FORMULA -> SYMBOL .
 
-    SYMBOL          shift and go to state 15
+    IMPLIES         reduce using rule 3 (FORMULA -> SYMBOL .)
+    OR              reduce using rule 3 (FORMULA -> SYMBOL .)
+    AND             reduce using rule 3 (FORMULA -> SYMBOL .)
+    $end            reduce using rule 3 (FORMULA -> SYMBOL .)
+    RBROADCAST      reduce using rule 3 (FORMULA -> SYMBOL .)
+    RPARENTESIS     reduce using rule 3 (FORMULA -> SYMBOL .)
 
 
 state 5
 
-    (6) FORMULA -> NOT . FORMULA
-    (1) FORMULA -> . FORALL SYMBOL COLON FORMULA
-    (2) FORMULA -> . EXISTS SYMBOL COLON FORMULA
-    (3) FORMULA -> . FORMULA IMPLIES FORMULA
-    (4) FORMULA -> . FORMULA OR FORMULA
-    (5) FORMULA -> . FORMULA AND FORMULA
-    (6) FORMULA -> . NOT FORMULA
-    (7) FORMULA -> . FALSE
-    (8) FORMULA -> . TRUE
-    (9) FORMULA -> . LPAREN FORMULA RPAREN
-    (10) FORMULA -> . SYMBOL
-    (11) FORMULA -> . TERM EQUALS TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (7) FORMULA -> NOT . FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    FORALL          shift and go to state 2
-    EXISTS          shift and go to state 4
+    SYMBOL          shift and go to state 4
     NOT             shift and go to state 5
-    FALSE           shift and go to state 6
-    TRUE            shift and go to state 7
-    LPAREN          shift and go to state 8
-    SYMBOL          shift and go to state 3
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
     FORMULA                        shift and go to state 16
-    TERM                           shift and go to state 9
+    MODAL                          shift and go to state 8
 
 state 6
 
-    (7) FORMULA -> FALSE .
+    (8) FORMULA -> NECESSARY . FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    IMPLIES         reduce using rule 7 (FORMULA -> FALSE .)
-    OR              reduce using rule 7 (FORMULA -> FALSE .)
-    AND             reduce using rule 7 (FORMULA -> FALSE .)
-    $end            reduce using rule 7 (FORMULA -> FALSE .)
-    RPAREN          reduce using rule 7 (FORMULA -> FALSE .)
+    SYMBOL          shift and go to state 4
+    NOT             shift and go to state 5
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
+    FORMULA                        shift and go to state 17
+    MODAL                          shift and go to state 8
 
 state 7
 
-    (8) FORMULA -> TRUE .
+    (9) FORMULA -> POSSIBLE . FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    IMPLIES         reduce using rule 8 (FORMULA -> TRUE .)
-    OR              reduce using rule 8 (FORMULA -> TRUE .)
-    AND             reduce using rule 8 (FORMULA -> TRUE .)
-    $end            reduce using rule 8 (FORMULA -> TRUE .)
-    RPAREN          reduce using rule 8 (FORMULA -> TRUE .)
+    SYMBOL          shift and go to state 4
+    NOT             shift and go to state 5
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
+    FORMULA                        shift and go to state 18
+    MODAL                          shift and go to state 8
 
 state 8
 
-    (9) FORMULA -> LPAREN . FORMULA RPAREN
-    (1) FORMULA -> . FORALL SYMBOL COLON FORMULA
-    (2) FORMULA -> . EXISTS SYMBOL COLON FORMULA
-    (3) FORMULA -> . FORMULA IMPLIES FORMULA
-    (4) FORMULA -> . FORMULA OR FORMULA
-    (5) FORMULA -> . FORMULA AND FORMULA
-    (6) FORMULA -> . NOT FORMULA
-    (7) FORMULA -> . FALSE
-    (8) FORMULA -> . TRUE
-    (9) FORMULA -> . LPAREN FORMULA RPAREN
-    (10) FORMULA -> . SYMBOL
-    (11) FORMULA -> . TERM EQUALS TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (10) FORMULA -> MODAL . FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    FORALL          shift and go to state 2
-    EXISTS          shift and go to state 4
+    SYMBOL          shift and go to state 4
     NOT             shift and go to state 5
-    FALSE           shift and go to state 6
-    TRUE            shift and go to state 7
-    LPAREN          shift and go to state 8
-    SYMBOL          shift and go to state 3
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
-    FORMULA                        shift and go to state 17
-    TERM                           shift and go to state 9
+    MODAL                          shift and go to state 8
+    FORMULA                        shift and go to state 19
 
 state 9
 
-    (11) FORMULA -> TERM . EQUALS TERM
+    (11) FORMULA -> LPARENTESIS . FORMULA RPARENTESIS
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    EQUALS          shift and go to state 18
+    SYMBOL          shift and go to state 4
+    NOT             shift and go to state 5
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
+    FORMULA                        shift and go to state 20
+    MODAL                          shift and go to state 8
 
 state 10
 
-    (3) FORMULA -> FORMULA IMPLIES . FORMULA
-    (1) FORMULA -> . FORALL SYMBOL COLON FORMULA
-    (2) FORMULA -> . EXISTS SYMBOL COLON FORMULA
-    (3) FORMULA -> . FORMULA IMPLIES FORMULA
-    (4) FORMULA -> . FORMULA OR FORMULA
-    (5) FORMULA -> . FORMULA AND FORMULA
-    (6) FORMULA -> . NOT FORMULA
-    (7) FORMULA -> . FALSE
-    (8) FORMULA -> . TRUE
-    (9) FORMULA -> . LPAREN FORMULA RPAREN
-    (10) FORMULA -> . SYMBOL
-    (11) FORMULA -> . TERM EQUALS TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (12) MODAL -> LNECESSARY . SYMBOL RNECESSARY
 
-    FORALL          shift and go to state 2
-    EXISTS          shift and go to state 4
-    NOT             shift and go to state 5
-    FALSE           shift and go to state 6
-    TRUE            shift and go to state 7
-    LPAREN          shift and go to state 8
-    SYMBOL          shift and go to state 3
+    SYMBOL          shift and go to state 21
 
-    FORMULA                        shift and go to state 19
-    TERM                           shift and go to state 9
 
 state 11
 
-    (4) FORMULA -> FORMULA OR . FORMULA
-    (1) FORMULA -> . FORALL SYMBOL COLON FORMULA
-    (2) FORMULA -> . EXISTS SYMBOL COLON FORMULA
-    (3) FORMULA -> . FORMULA IMPLIES FORMULA
-    (4) FORMULA -> . FORMULA OR FORMULA
-    (5) FORMULA -> . FORMULA AND FORMULA
-    (6) FORMULA -> . NOT FORMULA
-    (7) FORMULA -> . FALSE
-    (8) FORMULA -> . TRUE
-    (9) FORMULA -> . LPAREN FORMULA RPAREN
-    (10) FORMULA -> . SYMBOL
-    (11) FORMULA -> . TERM EQUALS TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (13) MODAL -> LPOSSIBLE . SYMBOL RPOSSIBLE
 
-    FORALL          shift and go to state 2
-    EXISTS          shift and go to state 4
-    NOT             shift and go to state 5
-    FALSE           shift and go to state 6
-    TRUE            shift and go to state 7
-    LPAREN          shift and go to state 8
-    SYMBOL          shift and go to state 3
+    SYMBOL          shift and go to state 22
 
-    FORMULA                        shift and go to state 20
-    TERM                           shift and go to state 9
 
 state 12
 
-    (5) FORMULA -> FORMULA AND . FORMULA
-    (1) FORMULA -> . FORALL SYMBOL COLON FORMULA
-    (2) FORMULA -> . EXISTS SYMBOL COLON FORMULA
-    (3) FORMULA -> . FORMULA IMPLIES FORMULA
-    (4) FORMULA -> . FORMULA OR FORMULA
-    (5) FORMULA -> . FORMULA AND FORMULA
-    (6) FORMULA -> . NOT FORMULA
-    (7) FORMULA -> . FALSE
-    (8) FORMULA -> . TRUE
-    (9) FORMULA -> . LPAREN FORMULA RPAREN
-    (10) FORMULA -> . SYMBOL
-    (11) FORMULA -> . TERM EQUALS TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (4) FORMULA -> FORMULA IMPLIES . FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    FORALL          shift and go to state 2
-    EXISTS          shift and go to state 4
+    SYMBOL          shift and go to state 4
     NOT             shift and go to state 5
-    FALSE           shift and go to state 6
-    TRUE            shift and go to state 7
-    LPAREN          shift and go to state 8
-    SYMBOL          shift and go to state 3
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
-    FORMULA                        shift and go to state 21
-    TERM                           shift and go to state 9
+    FORMULA                        shift and go to state 23
+    MODAL                          shift and go to state 8
 
 state 13
 
-    (1) FORMULA -> FORALL SYMBOL . COLON FORMULA
+    (5) FORMULA -> FORMULA OR . FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    COLON           shift and go to state 22
+    SYMBOL          shift and go to state 4
+    NOT             shift and go to state 5
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
+    FORMULA                        shift and go to state 24
+    MODAL                          shift and go to state 8
 
 state 14
 
-    (12) TERM -> SYMBOL LPAREN . TERMLIST RPAREN
-    (14) TERMLIST -> . TERM COMMA TERMLIST
-    (15) TERMLIST -> . TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (6) FORMULA -> FORMULA AND . FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    SYMBOL          shift and go to state 23
+    SYMBOL          shift and go to state 4
+    NOT             shift and go to state 5
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
-    TERMLIST                       shift and go to state 24
-    TERM                           shift and go to state 25
+    FORMULA                        shift and go to state 25
+    MODAL                          shift and go to state 8
 
 state 15
 
-    (2) FORMULA -> EXISTS SYMBOL . COLON FORMULA
+    (2) BROADCAST -> LBROADCAST FORMULA . RBROADCAST FORMULA
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    COLON           shift and go to state 26
+    RBROADCAST      shift and go to state 26
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
 
 
 state 16
 
-    (6) FORMULA -> NOT FORMULA .
-    (3) FORMULA -> FORMULA . IMPLIES FORMULA
-    (4) FORMULA -> FORMULA . OR FORMULA
-    (5) FORMULA -> FORMULA . AND FORMULA
+    (7) FORMULA -> NOT FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    IMPLIES         reduce using rule 6 (FORMULA -> NOT FORMULA .)
-    OR              reduce using rule 6 (FORMULA -> NOT FORMULA .)
-    AND             reduce using rule 6 (FORMULA -> NOT FORMULA .)
-    $end            reduce using rule 6 (FORMULA -> NOT FORMULA .)
-    RPAREN          reduce using rule 6 (FORMULA -> NOT FORMULA .)
+    IMPLIES         reduce using rule 7 (FORMULA -> NOT FORMULA .)
+    OR              reduce using rule 7 (FORMULA -> NOT FORMULA .)
+    AND             reduce using rule 7 (FORMULA -> NOT FORMULA .)
+    $end            reduce using rule 7 (FORMULA -> NOT FORMULA .)
+    RBROADCAST      reduce using rule 7 (FORMULA -> NOT FORMULA .)
+    RPARENTESIS     reduce using rule 7 (FORMULA -> NOT FORMULA .)
 
-  ! IMPLIES         [ shift and go to state 10 ]
-  ! OR              [ shift and go to state 11 ]
-  ! AND             [ shift and go to state 12 ]
+  ! IMPLIES         [ shift and go to state 12 ]
+  ! OR              [ shift and go to state 13 ]
+  ! AND             [ shift and go to state 14 ]
 
 
 state 17
 
-    (9) FORMULA -> LPAREN FORMULA . RPAREN
-    (3) FORMULA -> FORMULA . IMPLIES FORMULA
-    (4) FORMULA -> FORMULA . OR FORMULA
-    (5) FORMULA -> FORMULA . AND FORMULA
+    (8) FORMULA -> NECESSARY FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    RPAREN          shift and go to state 27
-    IMPLIES         shift and go to state 10
-    OR              shift and go to state 11
-    AND             shift and go to state 12
+    IMPLIES         reduce using rule 8 (FORMULA -> NECESSARY FORMULA .)
+    OR              reduce using rule 8 (FORMULA -> NECESSARY FORMULA .)
+    AND             reduce using rule 8 (FORMULA -> NECESSARY FORMULA .)
+    $end            reduce using rule 8 (FORMULA -> NECESSARY FORMULA .)
+    RBROADCAST      reduce using rule 8 (FORMULA -> NECESSARY FORMULA .)
+    RPARENTESIS     reduce using rule 8 (FORMULA -> NECESSARY FORMULA .)
+
+  ! IMPLIES         [ shift and go to state 12 ]
+  ! OR              [ shift and go to state 13 ]
+  ! AND             [ shift and go to state 14 ]
 
 
 state 18
 
-    (11) FORMULA -> TERM EQUALS . TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (9) FORMULA -> POSSIBLE FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    SYMBOL          shift and go to state 23
+    IMPLIES         reduce using rule 9 (FORMULA -> POSSIBLE FORMULA .)
+    OR              reduce using rule 9 (FORMULA -> POSSIBLE FORMULA .)
+    AND             reduce using rule 9 (FORMULA -> POSSIBLE FORMULA .)
+    $end            reduce using rule 9 (FORMULA -> POSSIBLE FORMULA .)
+    RBROADCAST      reduce using rule 9 (FORMULA -> POSSIBLE FORMULA .)
+    RPARENTESIS     reduce using rule 9 (FORMULA -> POSSIBLE FORMULA .)
 
-    TERM                           shift and go to state 28
+  ! IMPLIES         [ shift and go to state 12 ]
+  ! OR              [ shift and go to state 13 ]
+  ! AND             [ shift and go to state 14 ]
+
 
 state 19
 
-    (3) FORMULA -> FORMULA IMPLIES FORMULA .
-    (3) FORMULA -> FORMULA . IMPLIES FORMULA
-    (4) FORMULA -> FORMULA . OR FORMULA
-    (5) FORMULA -> FORMULA . AND FORMULA
+    (10) FORMULA -> MODAL FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    $end            reduce using rule 3 (FORMULA -> FORMULA IMPLIES FORMULA .)
-    RPAREN          reduce using rule 3 (FORMULA -> FORMULA IMPLIES FORMULA .)
-    IMPLIES         shift and go to state 10
-    OR              shift and go to state 11
-    AND             shift and go to state 12
+  ! shift/reduce conflict for IMPLIES resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+    $end            reduce using rule 10 (FORMULA -> MODAL FORMULA .)
+    RBROADCAST      reduce using rule 10 (FORMULA -> MODAL FORMULA .)
+    RPARENTESIS     reduce using rule 10 (FORMULA -> MODAL FORMULA .)
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
 
-  ! IMPLIES         [ reduce using rule 3 (FORMULA -> FORMULA IMPLIES FORMULA .) ]
-  ! OR              [ reduce using rule 3 (FORMULA -> FORMULA IMPLIES FORMULA .) ]
-  ! AND             [ reduce using rule 3 (FORMULA -> FORMULA IMPLIES FORMULA .) ]
+  ! IMPLIES         [ reduce using rule 10 (FORMULA -> MODAL FORMULA .) ]
+  ! OR              [ reduce using rule 10 (FORMULA -> MODAL FORMULA .) ]
+  ! AND             [ reduce using rule 10 (FORMULA -> MODAL FORMULA .) ]
 
 
 state 20
 
-    (4) FORMULA -> FORMULA OR FORMULA .
-    (3) FORMULA -> FORMULA . IMPLIES FORMULA
-    (4) FORMULA -> FORMULA . OR FORMULA
-    (5) FORMULA -> FORMULA . AND FORMULA
+    (11) FORMULA -> LPARENTESIS FORMULA . RPARENTESIS
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    IMPLIES         reduce using rule 4 (FORMULA -> FORMULA OR FORMULA .)
-    OR              reduce using rule 4 (FORMULA -> FORMULA OR FORMULA .)
-    $end            reduce using rule 4 (FORMULA -> FORMULA OR FORMULA .)
-    RPAREN          reduce using rule 4 (FORMULA -> FORMULA OR FORMULA .)
-    AND             shift and go to state 12
-
-  ! AND             [ reduce using rule 4 (FORMULA -> FORMULA OR FORMULA .) ]
-  ! IMPLIES         [ shift and go to state 10 ]
-  ! OR              [ shift and go to state 11 ]
+    RPARENTESIS     shift and go to state 27
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
 
 
 state 21
 
-    (5) FORMULA -> FORMULA AND FORMULA .
-    (3) FORMULA -> FORMULA . IMPLIES FORMULA
-    (4) FORMULA -> FORMULA . OR FORMULA
-    (5) FORMULA -> FORMULA . AND FORMULA
+    (12) MODAL -> LNECESSARY SYMBOL . RNECESSARY
 
-    IMPLIES         reduce using rule 5 (FORMULA -> FORMULA AND FORMULA .)
-    OR              reduce using rule 5 (FORMULA -> FORMULA AND FORMULA .)
-    AND             reduce using rule 5 (FORMULA -> FORMULA AND FORMULA .)
-    $end            reduce using rule 5 (FORMULA -> FORMULA AND FORMULA .)
-    RPAREN          reduce using rule 5 (FORMULA -> FORMULA AND FORMULA .)
-
-  ! IMPLIES         [ shift and go to state 10 ]
-  ! OR              [ shift and go to state 11 ]
-  ! AND             [ shift and go to state 12 ]
+    RNECESSARY      shift and go to state 28
 
 
 state 22
 
-    (1) FORMULA -> FORALL SYMBOL COLON . FORMULA
-    (1) FORMULA -> . FORALL SYMBOL COLON FORMULA
-    (2) FORMULA -> . EXISTS SYMBOL COLON FORMULA
-    (3) FORMULA -> . FORMULA IMPLIES FORMULA
-    (4) FORMULA -> . FORMULA OR FORMULA
-    (5) FORMULA -> . FORMULA AND FORMULA
-    (6) FORMULA -> . NOT FORMULA
-    (7) FORMULA -> . FALSE
-    (8) FORMULA -> . TRUE
-    (9) FORMULA -> . LPAREN FORMULA RPAREN
-    (10) FORMULA -> . SYMBOL
-    (11) FORMULA -> . TERM EQUALS TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (13) MODAL -> LPOSSIBLE SYMBOL . RPOSSIBLE
 
-    FORALL          shift and go to state 2
-    EXISTS          shift and go to state 4
-    NOT             shift and go to state 5
-    FALSE           shift and go to state 6
-    TRUE            shift and go to state 7
-    LPAREN          shift and go to state 8
-    SYMBOL          shift and go to state 3
+    RPOSSIBLE       shift and go to state 29
 
-    FORMULA                        shift and go to state 29
-    TERM                           shift and go to state 9
 
 state 23
 
-    (12) TERM -> SYMBOL . LPAREN TERMLIST RPAREN
-    (13) TERM -> SYMBOL .
+    (4) FORMULA -> FORMULA IMPLIES FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    LPAREN          shift and go to state 14
-    COMMA           reduce using rule 13 (TERM -> SYMBOL .)
-    RPAREN          reduce using rule 13 (TERM -> SYMBOL .)
-    IMPLIES         reduce using rule 13 (TERM -> SYMBOL .)
-    OR              reduce using rule 13 (TERM -> SYMBOL .)
-    AND             reduce using rule 13 (TERM -> SYMBOL .)
-    $end            reduce using rule 13 (TERM -> SYMBOL .)
+    $end            reduce using rule 4 (FORMULA -> FORMULA IMPLIES FORMULA .)
+    RBROADCAST      reduce using rule 4 (FORMULA -> FORMULA IMPLIES FORMULA .)
+    RPARENTESIS     reduce using rule 4 (FORMULA -> FORMULA IMPLIES FORMULA .)
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
+
+  ! IMPLIES         [ reduce using rule 4 (FORMULA -> FORMULA IMPLIES FORMULA .) ]
+  ! OR              [ reduce using rule 4 (FORMULA -> FORMULA IMPLIES FORMULA .) ]
+  ! AND             [ reduce using rule 4 (FORMULA -> FORMULA IMPLIES FORMULA .) ]
 
 
 state 24
 
-    (12) TERM -> SYMBOL LPAREN TERMLIST . RPAREN
+    (5) FORMULA -> FORMULA OR FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    RPAREN          shift and go to state 30
+    IMPLIES         reduce using rule 5 (FORMULA -> FORMULA OR FORMULA .)
+    OR              reduce using rule 5 (FORMULA -> FORMULA OR FORMULA .)
+    $end            reduce using rule 5 (FORMULA -> FORMULA OR FORMULA .)
+    RBROADCAST      reduce using rule 5 (FORMULA -> FORMULA OR FORMULA .)
+    RPARENTESIS     reduce using rule 5 (FORMULA -> FORMULA OR FORMULA .)
+    AND             shift and go to state 14
+
+  ! AND             [ reduce using rule 5 (FORMULA -> FORMULA OR FORMULA .) ]
+  ! IMPLIES         [ shift and go to state 12 ]
+  ! OR              [ shift and go to state 13 ]
 
 
 state 25
 
-    (14) TERMLIST -> TERM . COMMA TERMLIST
-    (15) TERMLIST -> TERM .
+    (6) FORMULA -> FORMULA AND FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    COMMA           shift and go to state 31
-    RPAREN          reduce using rule 15 (TERMLIST -> TERM .)
+    IMPLIES         reduce using rule 6 (FORMULA -> FORMULA AND FORMULA .)
+    OR              reduce using rule 6 (FORMULA -> FORMULA AND FORMULA .)
+    AND             reduce using rule 6 (FORMULA -> FORMULA AND FORMULA .)
+    $end            reduce using rule 6 (FORMULA -> FORMULA AND FORMULA .)
+    RBROADCAST      reduce using rule 6 (FORMULA -> FORMULA AND FORMULA .)
+    RPARENTESIS     reduce using rule 6 (FORMULA -> FORMULA AND FORMULA .)
+
+  ! IMPLIES         [ shift and go to state 12 ]
+  ! OR              [ shift and go to state 13 ]
+  ! AND             [ shift and go to state 14 ]
 
 
 state 26
 
-    (2) FORMULA -> EXISTS SYMBOL COLON . FORMULA
-    (1) FORMULA -> . FORALL SYMBOL COLON FORMULA
-    (2) FORMULA -> . EXISTS SYMBOL COLON FORMULA
-    (3) FORMULA -> . FORMULA IMPLIES FORMULA
-    (4) FORMULA -> . FORMULA OR FORMULA
-    (5) FORMULA -> . FORMULA AND FORMULA
-    (6) FORMULA -> . NOT FORMULA
-    (7) FORMULA -> . FALSE
-    (8) FORMULA -> . TRUE
-    (9) FORMULA -> . LPAREN FORMULA RPAREN
-    (10) FORMULA -> . SYMBOL
-    (11) FORMULA -> . TERM EQUALS TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
+    (2) BROADCAST -> LBROADCAST FORMULA RBROADCAST . FORMULA
+    (3) FORMULA -> . SYMBOL
+    (4) FORMULA -> . FORMULA IMPLIES FORMULA
+    (5) FORMULA -> . FORMULA OR FORMULA
+    (6) FORMULA -> . FORMULA AND FORMULA
+    (7) FORMULA -> . NOT FORMULA
+    (8) FORMULA -> . NECESSARY FORMULA
+    (9) FORMULA -> . POSSIBLE FORMULA
+    (10) FORMULA -> . MODAL FORMULA
+    (11) FORMULA -> . LPARENTESIS FORMULA RPARENTESIS
+    (12) MODAL -> . LNECESSARY SYMBOL RNECESSARY
+    (13) MODAL -> . LPOSSIBLE SYMBOL RPOSSIBLE
 
-    FORALL          shift and go to state 2
-    EXISTS          shift and go to state 4
+    SYMBOL          shift and go to state 4
     NOT             shift and go to state 5
-    FALSE           shift and go to state 6
-    TRUE            shift and go to state 7
-    LPAREN          shift and go to state 8
-    SYMBOL          shift and go to state 3
+    NECESSARY       shift and go to state 6
+    POSSIBLE        shift and go to state 7
+    LPARENTESIS     shift and go to state 9
+    LNECESSARY      shift and go to state 10
+    LPOSSIBLE       shift and go to state 11
 
-    FORMULA                        shift and go to state 32
-    TERM                           shift and go to state 9
+    FORMULA                        shift and go to state 30
+    MODAL                          shift and go to state 8
 
 state 27
 
-    (9) FORMULA -> LPAREN FORMULA RPAREN .
+    (11) FORMULA -> LPARENTESIS FORMULA RPARENTESIS .
 
-    IMPLIES         reduce using rule 9 (FORMULA -> LPAREN FORMULA RPAREN .)
-    OR              reduce using rule 9 (FORMULA -> LPAREN FORMULA RPAREN .)
-    AND             reduce using rule 9 (FORMULA -> LPAREN FORMULA RPAREN .)
-    $end            reduce using rule 9 (FORMULA -> LPAREN FORMULA RPAREN .)
-    RPAREN          reduce using rule 9 (FORMULA -> LPAREN FORMULA RPAREN .)
+    IMPLIES         reduce using rule 11 (FORMULA -> LPARENTESIS FORMULA RPARENTESIS .)
+    OR              reduce using rule 11 (FORMULA -> LPARENTESIS FORMULA RPARENTESIS .)
+    AND             reduce using rule 11 (FORMULA -> LPARENTESIS FORMULA RPARENTESIS .)
+    $end            reduce using rule 11 (FORMULA -> LPARENTESIS FORMULA RPARENTESIS .)
+    RBROADCAST      reduce using rule 11 (FORMULA -> LPARENTESIS FORMULA RPARENTESIS .)
+    RPARENTESIS     reduce using rule 11 (FORMULA -> LPARENTESIS FORMULA RPARENTESIS .)
 
 
 state 28
 
-    (11) FORMULA -> TERM EQUALS TERM .
+    (12) MODAL -> LNECESSARY SYMBOL RNECESSARY .
 
-    IMPLIES         reduce using rule 11 (FORMULA -> TERM EQUALS TERM .)
-    OR              reduce using rule 11 (FORMULA -> TERM EQUALS TERM .)
-    AND             reduce using rule 11 (FORMULA -> TERM EQUALS TERM .)
-    $end            reduce using rule 11 (FORMULA -> TERM EQUALS TERM .)
-    RPAREN          reduce using rule 11 (FORMULA -> TERM EQUALS TERM .)
+    SYMBOL          reduce using rule 12 (MODAL -> LNECESSARY SYMBOL RNECESSARY .)
+    NOT             reduce using rule 12 (MODAL -> LNECESSARY SYMBOL RNECESSARY .)
+    NECESSARY       reduce using rule 12 (MODAL -> LNECESSARY SYMBOL RNECESSARY .)
+    POSSIBLE        reduce using rule 12 (MODAL -> LNECESSARY SYMBOL RNECESSARY .)
+    LPARENTESIS     reduce using rule 12 (MODAL -> LNECESSARY SYMBOL RNECESSARY .)
+    LNECESSARY      reduce using rule 12 (MODAL -> LNECESSARY SYMBOL RNECESSARY .)
+    LPOSSIBLE       reduce using rule 12 (MODAL -> LNECESSARY SYMBOL RNECESSARY .)
 
 
 state 29
 
-    (1) FORMULA -> FORALL SYMBOL COLON FORMULA .
-    (3) FORMULA -> FORMULA . IMPLIES FORMULA
-    (4) FORMULA -> FORMULA . OR FORMULA
-    (5) FORMULA -> FORMULA . AND FORMULA
+    (13) MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE .
 
-  ! shift/reduce conflict for IMPLIES resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-    $end            reduce using rule 1 (FORMULA -> FORALL SYMBOL COLON FORMULA .)
-    RPAREN          reduce using rule 1 (FORMULA -> FORALL SYMBOL COLON FORMULA .)
-    IMPLIES         shift and go to state 10
-    OR              shift and go to state 11
-    AND             shift and go to state 12
-
-  ! IMPLIES         [ reduce using rule 1 (FORMULA -> FORALL SYMBOL COLON FORMULA .) ]
-  ! OR              [ reduce using rule 1 (FORMULA -> FORALL SYMBOL COLON FORMULA .) ]
-  ! AND             [ reduce using rule 1 (FORMULA -> FORALL SYMBOL COLON FORMULA .) ]
+    SYMBOL          reduce using rule 13 (MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE .)
+    NOT             reduce using rule 13 (MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE .)
+    NECESSARY       reduce using rule 13 (MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE .)
+    POSSIBLE        reduce using rule 13 (MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE .)
+    LPARENTESIS     reduce using rule 13 (MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE .)
+    LNECESSARY      reduce using rule 13 (MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE .)
+    LPOSSIBLE       reduce using rule 13 (MODAL -> LPOSSIBLE SYMBOL RPOSSIBLE .)
 
 
 state 30
 
-    (12) TERM -> SYMBOL LPAREN TERMLIST RPAREN .
+    (2) BROADCAST -> LBROADCAST FORMULA RBROADCAST FORMULA .
+    (4) FORMULA -> FORMULA . IMPLIES FORMULA
+    (5) FORMULA -> FORMULA . OR FORMULA
+    (6) FORMULA -> FORMULA . AND FORMULA
 
-    EQUALS          reduce using rule 12 (TERM -> SYMBOL LPAREN TERMLIST RPAREN .)
-    COMMA           reduce using rule 12 (TERM -> SYMBOL LPAREN TERMLIST RPAREN .)
-    RPAREN          reduce using rule 12 (TERM -> SYMBOL LPAREN TERMLIST RPAREN .)
-    IMPLIES         reduce using rule 12 (TERM -> SYMBOL LPAREN TERMLIST RPAREN .)
-    OR              reduce using rule 12 (TERM -> SYMBOL LPAREN TERMLIST RPAREN .)
-    AND             reduce using rule 12 (TERM -> SYMBOL LPAREN TERMLIST RPAREN .)
-    $end            reduce using rule 12 (TERM -> SYMBOL LPAREN TERMLIST RPAREN .)
-
-
-state 31
-
-    (14) TERMLIST -> TERM COMMA . TERMLIST
-    (14) TERMLIST -> . TERM COMMA TERMLIST
-    (15) TERMLIST -> . TERM
-    (12) TERM -> . SYMBOL LPAREN TERMLIST RPAREN
-    (13) TERM -> . SYMBOL
-
-    SYMBOL          shift and go to state 23
-
-    TERM                           shift and go to state 25
-    TERMLIST                       shift and go to state 33
-
-state 32
-
-    (2) FORMULA -> EXISTS SYMBOL COLON FORMULA .
-    (3) FORMULA -> FORMULA . IMPLIES FORMULA
-    (4) FORMULA -> FORMULA . OR FORMULA
-    (5) FORMULA -> FORMULA . AND FORMULA
-
-  ! shift/reduce conflict for IMPLIES resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for AND resolved as shift
-    $end            reduce using rule 2 (FORMULA -> EXISTS SYMBOL COLON FORMULA .)
-    RPAREN          reduce using rule 2 (FORMULA -> EXISTS SYMBOL COLON FORMULA .)
-    IMPLIES         shift and go to state 10
-    OR              shift and go to state 11
-    AND             shift and go to state 12
-
-  ! IMPLIES         [ reduce using rule 2 (FORMULA -> EXISTS SYMBOL COLON FORMULA .) ]
-  ! OR              [ reduce using rule 2 (FORMULA -> EXISTS SYMBOL COLON FORMULA .) ]
-  ! AND             [ reduce using rule 2 (FORMULA -> EXISTS SYMBOL COLON FORMULA .) ]
-
-
-state 33
-
-    (14) TERMLIST -> TERM COMMA TERMLIST .
-
-    RPAREN          reduce using rule 14 (TERMLIST -> TERM COMMA TERMLIST .)
+    $end            reduce using rule 2 (BROADCAST -> LBROADCAST FORMULA RBROADCAST FORMULA .)
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for IMPLIES in state 29 resolved as shift
-WARNING: shift/reduce conflict for OR in state 29 resolved as shift
-WARNING: shift/reduce conflict for AND in state 29 resolved as shift
-WARNING: shift/reduce conflict for IMPLIES in state 32 resolved as shift
-WARNING: shift/reduce conflict for OR in state 32 resolved as shift
-WARNING: shift/reduce conflict for AND in state 32 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 19 resolved as shift
+WARNING: shift/reduce conflict for OR in state 19 resolved as shift
+WARNING: shift/reduce conflict for AND in state 19 resolved as shift
