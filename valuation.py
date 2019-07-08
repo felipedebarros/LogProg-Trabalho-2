@@ -51,21 +51,20 @@ def evaluate(formula, state = frame["initialstate"]):
                 if(evaluate(formula[1], neighboor) == True):
                     return True
             return False 
-        
-    elif(len(formula) == 3):
-        if(formula[1] == '[]'):
-            mode = formula[0]
+        elif(formula[0][1] == '[]'):
+            mode = formula[0][0]
             for neighboor in frame["relationships"][mode][state]:
-                if(evaluate(formula[2], neighboor) == False):
+                if(evaluate(formula[1], neighboor) == False):
                     return False
             return True
-        if(formula[1] == '<>'):
-            mode = formula[0]
+        elif(formula[0][1] == '<>'):
+            mode = formula[0][0]
             for neighboor in frame["relationships"][mode][state]:
-                if(evaluate(formula[2], neighboor) == True):
+                if(evaluate(formula[1], neighboor) == True):
                     return True
             return False
-
+        
+    elif(len(formula) == 3):
         if(formula[1] == '&'):
             return (evaluate(formula[0], state) and evaluate(formula[2], state))
         if(formula[1] == '|'):
@@ -74,12 +73,13 @@ def evaluate(formula, state = frame["initialstate"]):
             return ( (not evaluate(formula[0], state)) or evaluate(formula[2], state))
 
 formula = parse(input("Formula: "))
+print(formula)
 if(formula[1] == "{}"):
     print ("Frame atual: ", frame)
     updateFrame(formula[0])
-#    evaluate(formula[2])
-#else:
-#    evaluate(formula)
+    print(evaluate(formula[2]))
+else:
+    print(evaluate(formula))
 
 # print(evaluate(formula))
 #print(formula)
