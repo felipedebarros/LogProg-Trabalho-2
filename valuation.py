@@ -32,6 +32,18 @@ def evaluate(formula, state = frame["initialstate"], mode = "default"):
             return False 
         
     elif(len(formula) == 3):
+        if(formula[1] == '[]'):
+            mode = formula[0]
+            for neighboor in frame["relationships"][mode][state]:
+                if(evaluate(formula[2], neighboor) == False):
+                    return False
+            return True
+        if(formula[1] == '<>'):
+            mode = formula[0]
+            for neighboor in frame["relationships"][mode][state]:
+                if(evaluate(formula[2], neighboor) == True):
+                    return True
+            return False
 
         if(formula[1] == '&'):
             return (evaluate(formula[0], state) and evaluate(formula[2], state))
