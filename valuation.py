@@ -1,4 +1,4 @@
-from parserfiles.parser import pyparsing_parse
+from parserfiles.parser import parse
 import json
 
 rawFrameHandler = open("frame.json", "r")
@@ -52,5 +52,6 @@ def evaluate(formula, state = frame["initialstate"], mode = "default"):
         if(formula[1] == '->'):
             return ( (not evaluate(formula[0], state)) or evaluate(formula[2], state))
 
-formula = pyparsing_parse(input("Formula: "))
-print(evaluate(formula))
+formula = parse(input("Formula: "))
+# print(evaluate(formula))
+print(formula)
