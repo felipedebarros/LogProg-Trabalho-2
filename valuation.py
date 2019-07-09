@@ -11,7 +11,6 @@ def updateFrame(formula):
     for state in frame["states"]:
         if (evaluate(formula, state) == False):
             removeState(state)
-    print ("Frame depois: ", frame)
     
 
 
@@ -29,7 +28,7 @@ def removeState(state):
             frame["valuation"][symbol].remove(state)
 
 
-def evaluate(formula, state = frame["initialstate"]):
+def evaluate(formula, state = frame["realstate"]):
     if(len(formula) == 1):
         if(formula in frame["symbols"]):
             if(state in frame["valuation"][formula]):
@@ -75,7 +74,6 @@ def evaluate(formula, state = frame["initialstate"]):
 formula = parse(input("Formula: "))
 print(formula)
 if(formula[1] == "{}"):
-    print ("Frame atual: ", frame)
     updateFrame(formula[0])
     print(evaluate(formula[2]))
 else:
